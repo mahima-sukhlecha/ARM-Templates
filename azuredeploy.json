@@ -58,7 +58,7 @@
     ],
     "outputs": {
         "storageEndpoint": {
-            "type": "string",
+            "type": "object",
             "value": "[reference(variables('uniqueStorageName')).primaryEndpoints]"
         }
     }
