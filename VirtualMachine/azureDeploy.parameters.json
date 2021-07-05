@@ -1,0 +1,31 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceGroupLocation": {
+            "value": "East US" 
+        },
+        "publicIPAddress": {
+            "value": "webtiervm-ip" 
+        },
+        "virtualNetworkName": {
+            "value": "vnet-linkedDeployment" 
+        },
+        "subnetName": {
+            "value": "subnet-webtier" 
+        },
+        "networkInterfaceName": {
+            "value": "webtiervm-nic" 
+        },
+        "virtualMachineName": {
+            "value": "webtier-vm" 
+        },
+        "adminUsername": {
+            "value": "mahima"
+        },
+        "adminPassword":{
+            "value": "Password@123"
+        }
+
+    }
+}
