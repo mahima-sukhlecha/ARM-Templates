@@ -55,6 +55,12 @@
             "metadata": {
                 "description": "Domain Name"
             }
+        },
+        "osDiskName": {
+            "type": "string",
+            "metadata": {
+                "description": "os Disk Name"
+            }
         }
 
     },
@@ -132,7 +138,7 @@
                         "version": "latest"
                     },
                     "osDisk": {
-                        "name": "windowsVM1OSDisk",
+                        "name": "[parameters('osDiskName')]",
                         "caching": "ReadWrite",
                         "createOption": "FromImage"
                     }

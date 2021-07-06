@@ -28,6 +28,9 @@
         },
         "domainNameLabel": {
             "value": "dnsname1" 
+        },
+        "osDiskName": {
+            "value": "windowsOsDisk123" 
         }
 
     }
