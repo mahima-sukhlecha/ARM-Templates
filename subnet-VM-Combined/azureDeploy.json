@@ -1,0 +1,151 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "Virtual Network Name"
+            }
+        },
+        "vmNames": {
+            "type": "array",
+            "metadata": {
+                "description": "Virtual Machines Names"
+            }
+        },
+        "subnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "Subnet Name"
+            }
+        },
+        "publicIPNames": {
+            "type": "array",
+            "metadata": {
+                "description": "Public IP Names"
+            }
+        },
+        "dnsNames": {
+            "type": "array",
+            "metadata": {
+                "description": "DNS Names"
+            }
+        },
+        "nicNames": {
+            "type": "array",
+            "metadata": {
+                "description": "Network Interface Names"
+            }
+        },
+        "adminUsername": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "adminPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "addressPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "addressPrefix for Subnet"
+            }
+        },
+        "osDiskName": {
+            "type": "array",
+            "metadata": {
+                "description": "description"
+            }
+        }
+
+    },
+    "functions": [],
+    "variables": {
+        "baseurl": "https://raw.githubusercontent.com/mahima-sukhlecha/ARM-Templates/main/",
+        "vmMainTemplateUrl": "[uri(variables('baseurl'),'VirtualMachine/azureDeploy.json')]",
+        "SubnetMainTemplateUrl": "[uri(variables('baseurl'), 'Subnet/azureDeploy.json')]",
+        "vmCount": "[length(parameters('vmNames'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2020-10-01",
+            "name": "subnetlinkedTemplate",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('SubnetMainTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "vnetName": {
+                        "value": "[parameters('vnetName')]"
+                    },
+                    "subnetName": {
+                        "value": "[parameters('subnetName')]"
+                    },
+                    "addressPrefix": {
+                        "value": "[parameters('addressPrefix')]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2020-10-01",
+            "name": "[concat('virtualMachinelinkedTemplate',copyIndex(1))]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('vmMainTemplateUrl')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "resourceGroupLocation": {
+                        "value": "East US"
+                    },
+                    "publicIPAddress": {
+                        "value": "[parameters('publicIPNames')[copyIndex()]]"
+                    },
+                    "virtualNetworkName": {
+                        "value": "[parameters('vnetName')]"
+                    },
+                    "subnetName": {
+                        "value": "[parameters('subnetName')]"
+                    },
+                    "networkInterfaceName": {
+                        "value": "[parameters('nicNames')[copyIndex()]]"
+                    },
+                    "virtualMachineName": {
+                        "value": "[parameters('vmNames')[copyIndex()]]"
+                    },
+                    "adminUsername": {
+                        "value": "[parameters('adminUsername')]"
+                    },
+                    "adminPassword": {
+                        "value": "[parameters('adminPassword')]"
+                    },
+                    
+                    "domainNameLabel": {
+                        "value": "[parameters('dnsNames')[copyIndex()]]"
+                    },
+                    "osDiskName": {
+                        "value": "[parameters('osDiskName')[copyIndex()]]"
+                    }
+
+                }
+            },
+            "copy": {
+                "name": "virtualmachinecopy",
+                "count": "[variables('vmCount')]"
+            }
+        }
+    ],
+    "outputs": {}
+}
+

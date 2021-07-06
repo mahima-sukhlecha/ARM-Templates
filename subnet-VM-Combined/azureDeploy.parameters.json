@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmNames": {
+            "value": [
+                "webteir-vm",
+                "apptier-vm"   
+            ]
+        },
+        "subnetName": {
+            "value": "web-tier-subnet"
+        },
+        "publicIPNames": {
+            "value": [
+                "webteir-ip",
+                "apptier-ip"
+            ]
+        },
+        "dnsNames": {
+            "value": [
+                "webteir-dns",
+                "apptier-dns"
+            ]
+        },
+        "nicNames": {
+            "value": [
+                "webteir-nic",
+                "apptier-nic"
+            ]
+        },
+        "adminUsername": {
+            "value": "Mahima" 
+        },
+        "adminPassword": {
+            "value": "Password@123" 
+        },
+        "addressPrefix": {
+            "value": "10.0.4.0/24" 
+        },
+        "osDiskName": {
+            "value": [
+                "webteir-osDisk",
+                "apptier-osDisk"
+            ]
+        },
+        "vnetName": {
+            "value": "vnet-linkedDeployment" 
+        }
+    }
+}
