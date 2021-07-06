@@ -53,7 +53,7 @@
         "domainNameLabel": {
             "type": "string",
             "metadata": {
-                "description": "description"
+                "description": "Domain Name"
             }
         }
 
