@@ -25,6 +25,9 @@
         },
         "adminPassword":{
             "value": "Password@123"
+        },
+        "domainNameLabel": {
+            "value": "dnsname1" 
         }
 
     }
