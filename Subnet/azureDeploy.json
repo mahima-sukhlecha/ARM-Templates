@@ -1,0 +1,38 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "Virtual Network Name"
+            }
+        },
+        "SubnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "Subnet Name"
+            }  
+        },
+        "addressPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "Address Prefix"
+            }
+        }
+
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "name": "[concat(parameters('vnetName'),'/',parameters('SubnetName'))]",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2019-12-01",
+            "properties": {
+                "addressPrefix": "[parameters('addressPrefix')]"
+            }
+        }
+    ],
+    "outputs": {}
+}
